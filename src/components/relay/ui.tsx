@@ -9,7 +9,7 @@ export function Reveal({ children, className, delay = 0 }: { children: ReactNode
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
+        if (e?.isIntersecting) {
           setTimeout(() => el.classList.add("in"), delay);
           io.disconnect();
         }
@@ -42,7 +42,7 @@ const dotMap: Record<Tone, string> = {
   neutral: "bg-muted-foreground text-muted-foreground",
 };
 
-export function Badge({ tone = "neutral", children, pulse }: { tone?: Tone; children: ReactNode; pulse?: boolean }) {
+export function Badge({ tone = "neutral", children, pulse }: { tone?: Tone; children: ReactNode; pulse?: boolean | undefined }) {
   return (
     <span className={cn("inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium", toneMap[tone])}>
       <Dot tone={tone} pulse={pulse} />
@@ -51,7 +51,7 @@ export function Badge({ tone = "neutral", children, pulse }: { tone?: Tone; chil
   );
 }
 
-export function Dot({ tone = "brand", pulse }: { tone?: Tone; pulse?: boolean }) {
+export function Dot({ tone = "brand", pulse }: { tone?: Tone; pulse?: boolean | undefined }) {
   return <span className={cn("inline-block size-1.5 rounded-full", dotMap[tone], pulse && "pulse-dot")} />;
 }
 
